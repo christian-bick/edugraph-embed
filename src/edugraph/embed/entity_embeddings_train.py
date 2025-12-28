@@ -94,7 +94,7 @@ RDF_TYPE = URIRef("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
 def rdf_to_pyg_graph(rdf_graph):
     """
     Parses an rdflib.Graph and converts it into a PyG graph.
-    This version generates node features from text embeddings and includes node type information.
+    This version generates node features from text embed and includes node type information.
     """
     if len(rdf_graph) == 0:
         print("RDF graph is empty. Cannot build PyG graph.")
@@ -142,7 +142,7 @@ def rdf_to_pyg_graph(rdf_graph):
     edge_index = torch.tensor([src, dst], dtype=torch.long)
     edge_type = torch.tensor(rel, dtype=torch.long)
 
-    # 3. Prepare node features from text embeddings
+    # 3. Prepare node features from text embed
     print("Generating node features from text definitions...")
     text_embedder = SentenceTransformer('all-MiniLM-L6-v2')
     DEFINITION_PREDICATE = RDFS.isDefinedBy

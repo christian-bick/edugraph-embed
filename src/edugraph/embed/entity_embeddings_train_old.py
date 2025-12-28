@@ -91,7 +91,7 @@ class InferenceModelBiased(nn.Module):
         # Add a small epsilon to the denominator to avoid division by zero
         sum_of_weights = torch.sum(entity_weights) + 1e-9
 
-        # Reshape weights to (N, 1) to broadcast correctly with embeddings (N, D)
+        # Reshape weights to (N, 1) to broadcast correctly with embed (N, D)
         weighted_embeddings = selected_embeddings * entity_weights.unsqueeze(1)
         
         pooled_embedding = torch.sum(weighted_embeddings, dim=0, keepdim=True) / sum_of_weights
@@ -212,7 +212,7 @@ def train_rgcn(data, model, scorer, optimizer, epochs=50, neg_sample_size=32):
         model.train()
         scorer.train()
 
-        # Get all node embeddings (real and imaginary parts)
+        # Get all node embed (real and imaginary parts)
         node_embeddings = model(data.x, data.edge_index, data.edge_type)
 
         # Positive samples score

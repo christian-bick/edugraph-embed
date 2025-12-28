@@ -46,7 +46,7 @@ uv sync
 To train the embeddings model, run the following command:
 
 ```bash
-uv run src/edugraph/models/embeddings/entity_embeddings_train.py
+uv run src/edugraph/embed/entity_embeddings_train.py
 ```
 
 This script will:

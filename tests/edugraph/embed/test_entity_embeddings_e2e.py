@@ -43,7 +43,7 @@ def test_1_subset_superset_proximity():
 
 @pytest.mark.skipif(not os.path.exists(DATA_PATH), reason=f"Skipping E2E tests: Model/data files not found in '{OUT_DIR}'. Run training script first.")
 def test_2_disjoint_concept_distance():
-    """Tests that embeddings for two unrelated concepts are far apart."""
+    """Tests that embed for two unrelated concepts are far apart."""
     print("\nRunning Test 2: Disjoint Concept Distance")
     set_a = ["http://edugraph.io/edu#IntegerAddition", "http://edugraph.io/edu#ProcedureExecution"]
     set_b = ["http://edugraph.io/edu#LinearShapeDrawing", "http://edugraph.io/edu#WritingFluency"]
@@ -83,7 +83,7 @@ def test_3_parent_child_hierarchy():
 
 @pytest.mark.skipif(not os.path.exists(DATA_PATH), reason=f"Skipping E2E tests: Model/data files not found in '{OUT_DIR}'. Run training script first.")
 def test_4_biased_vs_neutral_divergence():
-    """Tests that the biased and neutral models produce different embeddings."""
+    """Tests that the biased and neutral models produce different embed."""
     print("\nRunning Test 4: Biased vs. Neutral Divergence")
     set_mixed = ["http://edugraph.io/edu#Arithmetic", "http://edugraph.io/edu#ProcedureExecution"]
 
@@ -94,7 +94,7 @@ def test_4_biased_vs_neutral_divergence():
     assert_that(vector_neutral).is_not_none()
 
     # With the re-introduction of weighted pooling, the biased and neutral
-    # models should now produce different embeddings for a mixed-type set.
+    # models should now produce different embed for a mixed-type set.
     are_equal = np.array_equal(vector_biased, vector_neutral)
     print(f"  Are biased and neutral vectors identical? {are_equal}")
     assert_that(are_equal).is_false()
@@ -113,4 +113,4 @@ def test_5_idempotency():
 
     # Use assertpy's equality check for lists/arrays
     assert_that(vector_a1.tolist()).is_equal_to(vector_a2.tolist())
-    print("  First and second runs produced identical embeddings.")
+    print("  First and second runs produced identical embed.")
