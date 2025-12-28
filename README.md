@@ -1,26 +1,31 @@
-# EduGraph Models
+# EduGraph Embed
 
-This project provides tools for generating models related to classification and embedding generation with
-the [EduGraph competency ontology](https://github.com/christian-bick/edugraph-ontology). 
+This project provides a model for embedding labels from the
+[EduGraph ontology](https://github.com/christian-bick/edugraph-ontology). 
 
-In combination, these two types of models allow for high accuracy similarity search of completely unlabeled 
-learning material across all media formats supported by a multimodal LLM like documents, images, audio and video.
+When combined, with an [Edugraph classification model](https://github.com/christian-bick/edugraph-classify-qwen3vl) 
+we can determine skill similarity with high accuaracy between any type of learning content that is
+covered by the EduGraph ontology. For example, we can determine that on a screenshot from a math
+learning app the exact same set of skills that is being trained as what is being tested by a quiz
+that we provide as a PDF of photo.
 
-To generate classification models it currently relies on fine-tuning foundational multimodal models using
-[generated & labeled learning material](https://github.com/christian-bick/imagine-content) for supervised learning.
+The embedding model determines similarity based on the structure of the ontology itself and respects 
+various types of entity relationships to determine similarity in addition to semantic relations, most
+importantly parent-child as well as sibling relationships.
 
-To generate embedding models, it solely relies on the structure of the ontology itself using state-of-the-art 
-knowledge graph embedding strategies that map the knowledge graph structure into high dimensional vector spaces.
+For example, it will place related labels like IntegerAddition and FractionAddition closer together 
+than let's say ShapeIdentification based on their distance within the hierarchy of math areas.
+
+To accomplish this we are using state-of-the-art knowledge graph embedding strategies that 
+map the knowledge graph structures into high dimensional vector spaces using an RGCN.
 
 ## Ontology
 
 This project is centered around the EduGraph ontolog which is automatically retrieved from the 
 [ontology repository](https://github.com/christian-bick/edugraph-ontology) during model generation.
 
-## Features
-
-*   **Classification Model Data Generation:** Generates training data for fine-tuning Gemini to classify learning materials according to a defined ontology.
-*   **Embeddings Model Training:** Trains an RGCN (Relational Graph Convolutional Network) model to create embeddings for the ontology entities.
+The emedding model is trained on the entities and relationships in this model. It can only embed
+labels that are defined a entities within this ontology.
 
 ## Getting Started
 
@@ -44,28 +49,12 @@ This project is centered around the EduGraph ontolog which is automatically retr
 
 ## Usage
 
-### Classification Model
-
-To generate the training data for the classification model, follow these steps:
-
-1.  **Generate the ontology prompt:** This script creates a prompt file that includes the ontology's taxonomy.
-    ```bash
-    uv run src.edugraph.models.classification.generate_ontology_prompt
-    ```
-    This will generate the `out/entity_classification_instruction.txt` file.
-
-2.  **Generate the training data:** This script fetches metadata from a Google Cloud Storage (GCS) bucket, merges it, and then generates a `JSONL` file for training.
-    ```bash
-    uv run src.edugraph.models.classification.generate_training_data <your-gcs-bucket-name>
-    ```
-    Replace `<your-gcs-bucket-name>` with the name of your GCS bucket. The training data will be saved in `out/training_data.jsonl`.
-
-### Embeddings Model
-
 To train the embeddings model, run the following command:
+
 ```bash
 uv run src.edugraph.models.embeddings.entity_embeddings_train
 ```
+
 This script will:
 1.  Download the ontology from the specified URL.
 2.  Build a PyTorch Geometric graph from the ontology.
@@ -74,16 +63,19 @@ This script will:
 
 ## Contributing
 
-Contributions are welcome! Particularly for adding support to more foundational multimodal classification models.
+Contributions are welcome!
 
 Ideally always open an issue first to make sure your contribution aligns with the project's scope.
 
-Please make sure to add tests with your contribution and to only submit PRs with green tests.
+Also please make sure to add tests with your contribution and to only submit PRs with green tests.
 
-```bash
-uv run pytest
-```
+Please be aware that you need to sign a contributor agreement that allows us to relicense
+your contribution under other terms _in addition_ to the AGPL license. We aim for a balanced 
+approach between open source availability and project viability. Being able to redistribute 
+your contributions under other licenses as well is what helps us accomplish that goal.
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE. See the [LICENSE](LICENSE) file for details.
+
+If these license terms are not working for you then contact us and we can discuss alternative options.
