@@ -36,15 +36,10 @@ labels that are defined as entities within this ontology.
 
 ### Installation
 
-1. Install the dependencies using uv:
-    ```bash
-    uv sync
-    ```
-
-2.  Set up the environment variables by copying the `.env.example` file to `.env` and filling in the required values:
-    ```bash
-    cp .env.example .env
-    ```
+Install the dependencies using uv:
+```bash
+uv sync
+```
 
 ## Usage
 
