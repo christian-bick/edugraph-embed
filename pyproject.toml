@@ -1,9 +1,11 @@
 [project]
 name = "edugraph"
 version = "0.1.0"
-description = "EduGraph Models"
+description = "Generates and embedding model for EduGraph labels"
 authors = [{ name = "Christian Bick", email = "christian.bick@edugraph.io" }]
-requires-python = ">=3.13"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
 dependencies = [
     "owlready2>=0.46,<0.47",
     "torch>=2.4.0",
