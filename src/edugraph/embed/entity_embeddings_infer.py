@@ -71,7 +71,9 @@ if __name__ == "__main__":
 
     entities_to_pool = [
         "http://edugraph.io/edu#IntegerAddition",
-        "http://edugraph.io/edu#IntegerSubtraction"
+        "http://edugraph.io/edu#IntegerSubtraction",
+        "http://edugraph.io/edu#ProcedureExecution",
+        "http://edugraph.io/edu#NumbersWithoutZero",
     ]
 
     print(f"Attempting to get pooled embedding for: {', '.join(e.split('#')[-1] for e in entities_to_pool)}")
@@ -81,4 +83,4 @@ if __name__ == "__main__":
     if embedding is not None:
         print("\nSuccessfully got pooled embedding.")
         print(f"Shape: {embedding.shape}")
-        print(f"Embedding (first 5 elements): {embedding[0, :5]}")
+        print(f"Embedding (first 5 elements): {embedding[:5]}")
