@@ -45,6 +45,8 @@ uv sync
 
 ## Usage
 
+### Train
+
 To train the embedding model, run the following command:
 
 ```bash
@@ -56,6 +58,24 @@ This script will:
 2.  Build a PyTorch Geometric graph from the ontology.
 3.  Train an RGCN model.
 4.  Export the trained model to ONNX format (`out/embed_entities_biased.onnx` and `out/embed_entities_neutral.onnx`) and save the inference data (`out/embed_entities_text.pt`).
+
+### Publish
+
+To publish the model on huggingface:
+
+1.  **Log in to Hugging Face Hub:**
+    You need to authenticate with your Hugging Face account. You can do this by running the following command and entering your Hugging Face token:
+    ```bash
+    huggingface-cli login
+    ```
+
+2.  **Run the publishing script:**
+    The `publish_model.py` script will upload the trained model in the `out` directory to a Hugging Face model repository.
+    
+    To publish to the repository, run:
+    ```bash
+    uv run src/edugraph/publish_model.py your-username/your-repo-name
+    ```
 
 ## Contributing
 
