@@ -1,12 +1,12 @@
+import os
+
+import numpy as np
 import pytest
 from assertpy import assert_that
-import os
-import numpy as np
-from scipy.spatial.distance import cosine
-
 # Adjust the path to import from the source directory
 # This assumes the test is run from the project root directory
-from edugraph.models.embeddings.entity_embeddings_infer import embed_entities
+from edugraph.embed.entity_embeddings_infer import embed_entities
+from scipy.spatial.distance import cosine
 
 # --- Test Configuration ---
 
