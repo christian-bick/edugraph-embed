@@ -218,7 +218,7 @@ def train_model_from_graph(rdf_graph):
 
     onnx_path_biased = os.path.join(out_dir, "embed_entities_biased.onnx")
     onnx_path_neutral = os.path.join(out_dir, "embed_entities_neutral.onnx")
-    data_path = os.path.join(out_dir, "embed_entities_text.pt")
+    data_path = os.path.join(out_dir, "embed_entities.pt")
 
     dummy_pool_indices = torch.tensor([0, 1], dtype=torch.long)
 

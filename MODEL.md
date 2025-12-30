@@ -54,7 +54,7 @@ labels that are defined as entities within this ontology.
 1) Download the following files:
 
 - `embed_entities_biased.onnx`
-- `embed_entities_text.pt`
+- `embed_entities.pt`
 
 2) Install the following dependencies:
 
