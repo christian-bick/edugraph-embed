@@ -1,20 +1,19 @@
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.onnx
-from torch_geometric.data import Data
-from torch_geometric.nn import RGCNConv
-import numpy as np
-from rdflib import Graph, URIRef, Literal
-from rdflib.namespace import RDFS
-from collections import defaultdict
 import itertools
 import os
 import re
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.onnx
+from rdflib import URIRef
+from rdflib.namespace import RDFS
 from sentence_transformers import SentenceTransformer
+from torch_geometric.data import Data
+from torch_geometric.nn import RGCNConv
 
 from edugraph.ontology_loader import load_ontology_rdflib
+
 
 class RGCN(nn.Module):
     def __init__(self, in_dim, h_dim, out_dim, num_rels, dropout=0.5):
@@ -53,7 +52,7 @@ class InferenceModelBiased(nn.Module):
 
         # --- Weighted Pooling Logic ---
         selected_embeddings = node_embeddings.index_select(0, pool_indices)
-        
+
         # Get the types for the selected nodes
         selected_types = node_types[pool_indices]
 
@@ -65,7 +64,7 @@ class InferenceModelBiased(nn.Module):
         sum_of_weights = torch.sum(entity_weights) + 1e-9
         weighted_embeddings = selected_embeddings * entity_weights.unsqueeze(1)
         pooled_embedding = torch.sum(weighted_embeddings, dim=0, keepdim=True) / sum_of_weights
-        
+
         return pooled_embedding
 
 class InferenceModelNeutral(nn.Module):
@@ -118,7 +117,7 @@ def rdf_to_pyg_graph(rdf_graph):
 
     all_entities_list = sorted(list(valid_entities.keys()))
     entity_to_id = {entity: i for i, entity in enumerate(all_entities_list)}
-    
+
     # Create node type tensor
     node_types_list = [type_map[valid_entities[uri]] for uri in all_entities_list]
     node_types = torch.tensor(node_types_list, dtype=torch.long)

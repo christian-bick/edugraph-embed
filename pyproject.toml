@@ -7,19 +7,14 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = { file = "LICENSE" }
 dependencies = [
-    "owlready2>=0.46,<0.47",
-    "torch>=2.4.0",
-    "torchaudio>=2.4.0",
-    "torchvision>=0.19.0",
-    "pillow>=11.3.0",
-    "accelerate>=0.33.0",
-    "hf-xet>=1.1.7",
-    "rdflib>=7.1.4",
-    "torch-geometric>=2.6.1",
-    "onnxruntime>=1.22.1",
-    "torch-onnx>=0.1.25",
-    "scipy>=1.16.1",
-    "sentence-transformers>=5.1.0",
+    "owlready2~=0.49",
+    "torch~=2.8.0",
+    "rdflib~=7.5.0",
+    "torch-geometric~=2.6.1",
+    "onnxruntime~=1.23.2",
+    "torch-onnx~=0.1.25",
+    "sentence-transformers~=5.2.0",
+    "huggingface-hub~=0.23.4",
 ]
 
 [build-system]
@@ -30,11 +25,12 @@ build-backend = "uv_build"
 dev = [
     "pytest~=8.3",
     "assertpy~=1.1",
+    "deptry>=0.24.0",
 ]
 
 [[tool.uv.index]]
 name = "pytorch-cuda"
-url = "https://download.pytorch.org/whl/cu124"
+url = "https://download.pytorch.org/whl/cu128"
 explicit = true
 
 [tool.uv.sources]

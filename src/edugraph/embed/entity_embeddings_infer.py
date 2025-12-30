@@ -1,8 +1,9 @@
+import os
+
+import numpy as np
 import onnxruntime
 import torch
-import numpy as np
 
-import os
 
 def embed_entities(entity_uris, model_path, data_path):
     """

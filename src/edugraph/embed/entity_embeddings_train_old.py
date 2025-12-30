@@ -1,18 +1,18 @@
+import itertools
+import os
+from collections import defaultdict
+
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.onnx
+from rdflib import URIRef
 from torch_geometric.data import Data
 from torch_geometric.nn import RGCNConv
-import numpy as np
-from rdflib import Graph, URIRef, Literal
-from collections import defaultdict
-import itertools
-
-import os
-
 
 from edugraph.ontology_loader import load_ontology_rdflib
+
 
 class RGCN(nn.Module):
     def __init__(self, in_dim, h_dim, out_dim, num_rels):
