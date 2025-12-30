@@ -3,13 +3,17 @@
 This project trains a model for embedding labels from the
 [EduGraph ontology](https://github.com/christian-bick/edugraph-ontology).
 
+The trained model is made available on [Huggingface](https://huggingface.co/christian-bick/edugraph-embedding).
+
+## About
+
 When combined with an [EduGraph Classification Model](https://github.com/christian-bick/edugraph-classify-qwen3vl),
 we can determine similarity between any type of learning content covered by the EduGraph ontology. 
 For example, in tandem, the two models can determine whether some content of a math learning app 
 trains the exact same set of skills tested in a paper quiz, by providing nothing else than a screenshot 
 and a photo.
 
-The trained model determines similarity based on the *structure* of the EduGraph Ontology. It respects
+The embedding model we train here determines similarity based on the *structure* of the EduGraph Ontology. It respects
 various types of entity relationships to determine similarity, most importantly, parent-child and sibling 
 relationships within the graph in addition to the semantic similarity of their definitions.
 
