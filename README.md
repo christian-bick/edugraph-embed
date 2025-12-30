@@ -1,30 +1,32 @@
 # EduGraph Embed
 
-This project provides a model for embedding labels from the
+This project trains a model for embedding labels from the
 [EduGraph ontology](https://github.com/christian-bick/edugraph-ontology).
 
-When combined with an [EduGraph classification model](https://github.com/christian-bick/edugraph-classify-qwen3vl),
-we can determine skill similarity with high accuracy between any type of learning content
-covered by the EduGraph ontology. For example, we can determine that a screenshot from a math
-learning app trains the exact same set of skills tested in a quiz provided as a PDF or photo.
+When combined with an [EduGraph Classification Model](https://github.com/christian-bick/edugraph-classify-qwen3vl),
+we can determine similarity between any type of learning content covered by the EduGraph ontology. 
+For example, in tandem, the two models can determine whether some content of a math learning app 
+trains the exact same set of skills tested in a paper quiz, by providing nothing else than a screenshot 
+and a photo.
 
-The embedding model determines similarity based on the structure of the ontology itself. It respects
-various types of entity relationships to determine similarity, including semantic relations, and most
-importantly, parent-child and sibling relationships.
+The trained model determines similarity based on the *structure* of the EduGraph Ontology. It respects
+various types of entity relationships to determine similarity, most importantly, parent-child and sibling 
+relationships within the graph in addition to the semantic similarity of their definitions.
 
-For example, it will place related labels like `IntegerAddition` and `FractionAddition` closer together
-than, say, `ShapeIdentification`, based on their distance within the hierarchy of math areas.
+For example, the trained model will reliably place labels like `IntegerAddition` and `FractionAddition` 
+closer together than, say, `ShapeIdentification`.
 
-To accomplish this, we are using state-of-the-art knowledge graph embedding strategies that
-map the knowledge graph structures into high-dimensional vector spaces using an RGCN.
+To accomplish this, the model is trained to generate knowledge graph embeddings that
+map the ontology structure into a high-dimensional vector space using a 
+[Relational Graph Convolutional Network (R-GCN)](https://arxiv.org/abs/1703.06103).
 
 ## Ontology
 
-This project is centered around the EduGraph ontology, which is automatically retrieved from the
+This model is centered around the EduGraph ontology, which is automatically retrieved from the
 [ontology repository](https://github.com/christian-bick/edugraph-ontology) during model generation.
 
-The embedding model is trained on the entities and relationships in this ontology. It can only embed
-labels that are defined as entities within this ontology.
+The embedding model is trained on the entities and relationships in this ontology. Consequently, 
+it can only embed labels that are defined as entities within this ontology.
 
 ## Getting Started
 
@@ -43,14 +45,14 @@ uv sync
 
 ## Usage
 
-To train the embeddings model, run the following command:
+To train the embedding model, run the following command:
 
 ```bash
 uv run src/edugraph/embed/entity_embeddings_train.py
 ```
 
 This script will:
-1.  Download the ontology from the specified URL.
+1.  Download the ontology from the repository.
 2.  Build a PyTorch Geometric graph from the ontology.
 3.  Train an RGCN model.
 4.  Export the trained model to ONNX format (`out/embed_entities_biased.onnx` and `out/embed_entities_neutral.onnx`) and save the inference data (`out/embed_entities_text.pt`).
