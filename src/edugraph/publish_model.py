@@ -23,6 +23,10 @@ def publish_model(repo_id: str, model_dir: str = "out"):
     shutil.copy("MODEL.md", model_readme_path)
     print(f"Copied MODEL.md to {model_readme_path}")
 
+    # Copy LICENSE to the model directory
+    shutil.copy("LICENSE", os.path.join(model_dir, "LICENSE"))
+    print(f"Copied LICENSE to {model_dir}/LICENSE")
+
     # Authenticate with Hugging Face Hub
     # Assumes the user has already logged in via `huggingface-cli login` or has set HF_TOKEN
     token = HfFolder.get_token()
